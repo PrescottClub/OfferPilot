@@ -5,6 +5,15 @@ Page({
     regions: [],
     regionsExpanded: false,
     allRegions: ['美国','加拿大','英国','法国','德国','澳大利亚','新西兰'],
+    regionFlags: {
+      '美国': 'flag-us',
+      '加拿大': 'flag-ca',
+      '英国': 'flag-uk',
+      '法国': 'flag-fr',
+      '德国': 'flag-de',
+      '澳大利亚': 'flag-au',
+      '新西兰': 'flag-nz'
+    },
     score: '',
     schools: '',
     majors: ''

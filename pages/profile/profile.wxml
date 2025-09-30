@@ -69,7 +69,8 @@
       <checkbox-group bindchange="onRegions">
         <label class="sheet-option" wx:for="{{allRegions}}" wx:key="*this">
           <checkbox value="{{item}}" checked="{{regions.indexOf(item) > -1}}" />
-          <text>{{item}}</text>
+          <view class="sheet-flag {{regionFlags[item]}}"></view>
+          <text class="sheet-label">{{item}}</text>
         </label>
       </checkbox-group>
     </view>
