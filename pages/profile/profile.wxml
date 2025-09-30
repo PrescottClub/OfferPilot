@@ -1,0 +1,58 @@
+<view class="container">
+  <view class="card" style="display:flex;align-items:center;gap:24rpx;">
+    <image class="avatar" src="/images/avatar-placeholder.png" mode="aspectFill"></image>
+    <view style="flex:1;">
+      <view style="font-size:32rpx;font-weight:600;">{{nickname || '未登录用户'}}</view>
+      <view style="color:#6b7280;margin-top:6rpx;">完善个人信息以获得更佳推荐</view>
+    </view>
+  </view>
+
+  <view class="section-title">基本信息</view>
+  <view class="card form">
+    <view class="row">
+      <text class="label">姓名</text>
+      <input class="value" placeholder="请输入姓名" value="{{name}}" bindinput="onName" />
+    </view>
+
+    <view class="row">
+      <text class="label">目标申请地区</text>
+      <view class="value">
+        <view class="regions-line">
+          <view class="selected-regions" wx:if="{{!regionsExpanded}}">
+            <block wx:if="{{regions && regions.length}}">
+              <text class="pill" wx:for="{{regions}}" wx:key="*this">{{item}}</text>
+            </block>
+            <text class="placeholder" wx:else>未选择</text>
+          </view>
+          <button size="mini" class="expand-btn" bindtap="toggleRegions">{{regionsExpanded ? '收起' : '展开选择'}}</button>
+        </view>
+        <view wx:if="{{regionsExpanded}}" style="margin-top: 12rpx;">
+          <checkbox-group bindchange="onRegions">
+            <label class="tag" wx:for="{{allRegions}}" wx:key="*this">
+              <checkbox value="{{item}}" checked="{{regions.indexOf(item) > -1}}"/> {{item}}
+            </label>
+          </checkbox-group>
+        </view>
+      </view>
+    </view>
+
+    <view class="row">
+      <text class="label">外语成绩</text>
+      <input class="value" placeholder="如：雅思 7.0 / 托福 100" value="{{score}}" bindinput="onScore" />
+    </view>
+
+    <view class="row">
+      <text class="label">目标院校</text>
+      <input class="value" placeholder="用逗号分隔多个院校" value="{{schools}}" bindinput="onSchools" />
+    </view>
+
+    <view class="row">
+      <text class="label">目标专业</text>
+      <input class="value" placeholder="用逗号分隔多个专业" value="{{majors}}" bindinput="onMajors" />
+    </view>
+  </view>
+
+  <view style="margin-top:24rpx;">
+    <button class="btn-primary" bindtap="onSave">保存</button>
+  </view>
+</view>

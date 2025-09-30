@@ -1,0 +1,23 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200rpx;
+}
+
+.tool-icon {
+  font-size: 56rpx;
+  margin-bottom: 16rpx;
+}
+
+.tool-name {
+  font-size: 28rpx;
+}
+

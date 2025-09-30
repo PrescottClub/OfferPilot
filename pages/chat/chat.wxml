@@ -1,0 +1,15 @@
+<view class="chat-page">
+  <scroll-view class="history" scroll-y="true" scroll-into-view="{{scrollIntoView}}">
+    <block wx:for="{{messages}}" wx:key="id">
+      <view class="msg {{item.role}}" id="msg-{{item.id}}">
+        <view class="bubble">{{item.text}}</view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <view class="composer">
+    <input class="composer-input" placeholder="输入消息..." value="{{draft}}" bindinput="onInput" confirm-type="send" bindconfirm="onSend" />
+    <button class="btn-primary composer-send" size="mini" bindtap="onSend">发送</button>
+  </view>
+</view>
+

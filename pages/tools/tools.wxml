@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="card" style="margin-bottom: 24rpx;">
+    <input class="input" placeholder="搜索工具，例如：雅思口语、文书批改…" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch" />
+  </view>
+
+  <view class="section-title">常用工具</view>
+  <view class="grid">
+    <block wx:for="{{filteredTools}}" wx:key="name">
+      <view class="grid-item card" bindtap="onToolTap" data-name="{{item.name}}">
+        <view class="tool-icon">{{item.emoji}}</view>
+        <view class="tool-name">{{item.name}}</view>
+      </view>
+    </block>
+  </view>
+</view>
+
