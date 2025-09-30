@@ -1,30 +1,40 @@
-<view class="tools-dashboard">
-  <view class="dashboard-inner">
-    <view class="dashboard-header">
-      <view class="dashboard-title">OfferPilot 工具面板</view>
-      <view class="dashboard-subtitle">精选常用助手，帮助你高效推进留学申请流程。</view>
+<view class="tools-page page-shell">
+  <view class="tools-inner">
+    <view class="tools-header">
+      <view class="heading-xl">OfferPilot 工具面板</view>
+      <view class="body-text">精选常用助手，陪你高效推进每一个申请节点。</view>
     </view>
 
-    <view class="search-row">
-      <view class="search-bar glass-input">
-        <view class="search-icon"></view>
-        <input class="search-field" placeholder="搜索工具，如：口语练习" value="{{search}}" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch" />
-      </view>
+    <view class="search-bar card-elevated">
+      <view class="search-icon"></view>
+      <input
+        class="search-field input-base"
+        placeholder="搜索工具，如：面试准备"
+        value="{{search}}"
+        bindinput="onSearchInput"
+        confirm-type="search"
+        bindconfirm="onSearch"
+      />
     </view>
 
     <view class="tool-grid">
       <block wx:for="{{filteredTools}}" wx:key="name">
-        <view class="tool-card" bindtap="onToolTap" data-name="{{item.name}}">
-          <view class="tool-icon">
-            <view class="glyph {{item.icon}}"></view>
+        <view class="tool-card card-elevated" bindtap="onToolTap" data-name="{{item.name}}">
+          <view class="tool-icon-cap">
+            <view class="tool-icon-ring">
+              <view class="tool-duo {{item.icon}}"></view>
+            </view>
           </view>
-          <view class="tool-title">{{item.name}}</view>
+          <view class="tool-meta">
+            <view class="tool-title heading-md">{{item.name}}</view>
+            <view class="tool-desc caption-text">{{item.description}}</view>
+          </view>
         </view>
       </block>
-      <view wx:if="{{!filteredTools.length}}" class="empty-state glass-input">
-        <text>未找到匹配的工具，请尝试输入其他关键词。</text>
+
+      <view wx:if="{{!filteredTools.length}}" class="empty-state card-elevated">
+        <text class="caption-text">未找到匹配的工具，请尝试输入其他关键词。</text>
       </view>
     </view>
   </view>
 </view>
-

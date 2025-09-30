@@ -1,38 +1,43 @@
-<view class="chat-page">
+<view class="chat-page page-shell">
   <view class="chat-overlay"></view>
-  <view class="chat-content">
-    <view class="welcome-card glass-card">
-      <view class="welcome-header">
+  <view class="chat-stack">
+    <view class="welcome-card card-elevated">
+      <view class="welcome-top">
         <view class="logo-mark">OP</view>
         <view class="welcome-copy">
-          <view class="welcome-title">OfferPilot 智能顾问</view>
-          <view class="welcome-subtitle subtitle">欢迎回来，随时提问你的留学申请问题。</view>
+          <view class="heading-lg">OfferPilot 智能顾问</view>
+          <view class="caption-text">欢迎回来，随时向我咨询你的留学申请计划。</view>
         </view>
       </view>
-      <view class="welcome-actions">
-        <text class="floating-chip">快速提问</text>
-        <text class="floating-chip">申请规划</text>
-        <text class="floating-chip">材料润色</text>
+      <view class="quick-actions">
+        <block wx:for="{{quickPrompts}}" wx:key="*this">
+          <view class="ghost-chip" data-value="{{item}}" bindtap="onQuickSelect">{{item}}</view>
+        </block>
       </view>
     </view>
 
-    <scroll-view class="history glass-panel" scroll-y="true" enable-flex="true" scroll-into-view="{{scrollIntoView}}">
+    <scroll-view class="history card-elevated" scroll-y="true" enable-flex="true" scroll-into-view="{{scrollIntoView}}">
       <block wx:for="{{messages}}" wx:key="id">
         <view class="msg {{item.role}}" id="msg-{{item.id}}">
           <view class="bubble">
-            <text class="msg-role" wx:if="{{item.role === 'bot'}}">OfferPilot</text>
-            <text class="msg-role" wx:elif="{{item.role === 'me'}}">我</text>
-            <view class="msg-text">{{item.text}}</view>
+            <view class="msg-text {{item.role}}-text">{{item.text}}</view>
           </view>
         </view>
       </block>
     </scroll-view>
   </view>
 
-  <view class="composer glass-panel">
-    <input class="composer-input frosted-input" placeholder="请输入你想咨询的内容" value="{{draft}}" bindinput="onInput" confirm-type="send" bindconfirm="onSend" />
-    <button class="send-btn" size="mini" bindtap="onSend">
-      <text>发送</text>
+  <view class="composer-panel">
+    <input
+      class="composer-input input-base"
+      placeholder="请输入你想咨询的内容"
+      value="{{draft}}"
+      bindinput="onInput"
+      confirm-type="send"
+      bindconfirm="onSend"
+    />
+    <button class="send-btn {{draft ? 'is-active' : ''}}" size="mini" bindtap="onSend">
+      <view class="send-glyph"></view>
     </button>
   </view>
 </view>

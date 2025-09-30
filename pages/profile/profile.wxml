@@ -1,68 +1,71 @@
-<view class="profile-screen">
-  <view class="profile-hero">
-    <view class="hero-glass">
-      <view class="hero-bg"></view>
-      <view class="hero-content">
-        <view class="avatar-wrap">
-          <image class="avatar" src="/images/avatar-placeholder.png" mode="aspectFill"></image>
+<view class="profile-screen page-shell">
+  <view class="hero-card surface-blur">
+    <view class="hero-gradient"></view>
+    <view class="hero-content">
+      <view class="identity-orb"></view>
+      <view class="hero-texts">
+        <view class="hero-title">
+          <text class="hero-name">{{nickname || '未登录用户'}}</text>
+          <text class="hero-status">· Guest</text>
         </view>
-        <view class="hero-texts">
-          <view class="hero-name">{{nickname || '未登录用户'}}</view>
-          <view class="hero-subtitle">完善个人档案，OfferPilot 更懂你的申请需求。</view>
-        </view>
+        <view class="hero-subtitle caption-text">完善个人档案，OfferPilot 更懂你的申请需求。</view>
       </view>
     </view>
   </view>
 
-  <view class="form-section glass-panel">
-    <view class="section-header">基本信息</view>
+  <view class="form-section surface-blur">
+    <view class="section-header heading-md">基本信息</view>
 
-    <view class="info-row" bindtap="onNameRow">
+    <view class="info-row">
       <view class="row-icon icon-user"></view>
       <view class="row-body">
         <view class="row-label">姓名</view>
-        <input class="row-input" placeholder="请输入姓名" value="{{name}}" bindinput="onName" />
+        <input class="row-input input-base" placeholder="请输入姓名" value="{{name}}" bindinput="onName" />
       </view>
     </view>
+    <view class="divider-line"></view>
 
-    <view class="info-row" bindtap="toggleRegions">
+    <view class="info-row selectable" bindtap="toggleRegions">
       <view class="row-icon icon-globe"></view>
       <view class="row-body">
         <view class="row-label">目标地区</view>
         <view class="row-value">
           <text wx:if="{{regions && regions.length}}">{{regions.join('、')}}</text>
-          <text wx:else class="placeholder">请选择意向留学地区</text>
+          <text wx:else class="placeholder-text">请选择意向留学地区</text>
         </view>
       </view>
       <view class="row-chevron"></view>
     </view>
+    <view class="divider-line"></view>
 
     <view class="info-row">
       <view class="row-icon icon-award"></view>
       <view class="row-body">
         <view class="row-label">语言成绩</view>
-        <input class="row-input" placeholder="示例：雅思 7.0 / 托福 100" value="{{score}}" bindinput="onScore" />
+        <input class="row-input input-base" placeholder="示例：雅思 7.0 / 托福 100" value="{{score}}" bindinput="onScore" />
       </view>
     </view>
+    <view class="divider-line"></view>
 
     <view class="info-row">
       <view class="row-icon icon-building"></view>
       <view class="row-body">
         <view class="row-label">目标院校</view>
-        <input class="row-input" placeholder="多个院校请用逗号分隔" value="{{schools}}" bindinput="onSchools" />
+        <input class="row-input input-base" placeholder="多个院校请用逗号分隔" value="{{schools}}" bindinput="onSchools" />
       </view>
     </view>
+    <view class="divider-line"></view>
 
     <view class="info-row">
       <view class="row-icon icon-book"></view>
       <view class="row-body">
         <view class="row-label">目标专业</view>
-        <input class="row-input" placeholder="多个专业请用逗号分隔" value="{{majors}}" bindinput="onMajors" />
+        <input class="row-input input-base" placeholder="多个专业请用逗号分隔" value="{{majors}}" bindinput="onMajors" />
       </view>
     </view>
 
-    <view wx:if="{{regionsExpanded}}" class="regions-sheet">
-      <view class="sheet-title">请选择意向地区</view>
+    <view wx:if="{{regionsExpanded}}" class="regions-sheet surface-blur">
+      <view class="sheet-title body-text">请选择意向地区</view>
       <checkbox-group bindchange="onRegions">
         <label class="sheet-option" wx:for="{{allRegions}}" wx:key="*this">
           <checkbox value="{{item}}" checked="{{regions.indexOf(item) > -1}}" />
@@ -76,4 +79,3 @@
     <button class="save-btn" bindtap="onSave">保存</button>
   </view>
 </view>
-

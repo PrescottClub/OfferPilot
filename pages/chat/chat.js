@@ -3,6 +3,7 @@ let nextId = 1;
 Page({
   data: {
     draft: '',
+    quickPrompts: ['快速提问', '申请规划', '材料润色'],
     messages: [
       { id: nextId++, role: 'bot', text: '你好，我是OfferPilot，随时为你提供留学相关帮助～' }
     ],
@@ -14,12 +15,17 @@ Page({
   onSend() {
     const text = (this.data.draft || '').trim();
     if (!text) return;
-
+    this.dispatchMessage(text);
+  },
+  onQuickSelect(e) {
+    const text = e.currentTarget.dataset.value;
+    this.dispatchMessage(text);
+  },
+  dispatchMessage(text) {
     const userMsg = { id: nextId++, role: 'me', text };
-    const msgs = this.data.messages.concat(userMsg);
-    this.setData({ messages: msgs, draft: '', scrollIntoView: `msg-${userMsg.id}` });
+    const userMessages = this.data.messages.concat(userMsg);
+    this.setData({ messages: userMessages, draft: '', scrollIntoView: `msg-${userMsg.id}` });
 
-    // Mock bot reply
     setTimeout(() => {
       const reply = { id: nextId++, role: 'bot', text: '收到：' + text };
       this.setData({
@@ -28,5 +34,4 @@ Page({
       });
     }, 400);
   }
-})
-
+});
