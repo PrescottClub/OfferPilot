@@ -23,6 +23,8 @@
   display: flex;
   flex-direction: column;
   gap: 24rpx;
+  flex: 1;
+  min-height: 0;
 }
 
 .welcome-card {
@@ -60,6 +62,7 @@
 
 .history {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 24rpx;
@@ -157,13 +160,19 @@
 .send-btn {
   width: 96rpx;
   height: 96rpx;
+  min-width: 96rpx;
+  min-height: 96rpx;
   border-radius: 48rpx;
   border: none;
   background: #E7E9F3;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   transition: background 0.2s ease, transform 0.2s ease;
+  position: relative;
+  padding: 0;
+  line-height: 1;
 }
 
 .send-btn::after {
@@ -180,6 +189,9 @@
 }
 
 .send-glyph {
+  position: absolute;
+  inset: 0;
+  margin: auto;
   width: 40rpx;
   height: 40rpx;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='none' stroke='%238B5CF6' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M4 4l24 12-24 12 6-12-6-12z'/></svg>");

@@ -56,7 +56,8 @@ page {
   box-shadow: 0 24rpx 64rpx rgba(139, 92, 246, 0.12);
 }
 
-.panel-soft {
+.panel-soft,
+.surface-blur {
   background: rgba(255, 255, 255, 0.72);
   border-radius: 32rpx;
   backdrop-filter: blur(34rpx);
