@@ -33,7 +33,8 @@ Page({
     this.setData({ filteredTools: filtered });
   },
   onToolTap(e) {
-    const name = e.currentTarget.dataset.name;
+    const name = (e.detail && e.detail.name) || (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.name) || '';
+    if (!name) return;
     wx.showToast({ title: name, icon: 'none' });
   }
 });

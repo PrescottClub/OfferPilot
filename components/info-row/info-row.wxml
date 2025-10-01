@@ -1,0 +1,8 @@
+<view class="info-row {{selectable ? 'selectable' : ''}}" bindtap="handleTap">
+  <view class="row-icon {{icon}}"></view>
+  <view class="row-body">
+    <view class="row-label">{{label}}</view>
+    <slot></slot>
+  </view>
+  <slot name="after"></slot>
+</view>

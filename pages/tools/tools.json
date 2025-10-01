@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "工具栏"
+  "navigationBarTitleText": "工具栏",
+  "usingComponents": {
+    "tool-card": "/components/tool-card/tool-card"
+  }
 }
-

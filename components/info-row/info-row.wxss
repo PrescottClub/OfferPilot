@@ -1,0 +1,65 @@
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 22rpx 0;
+}
+
+.row-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 24rpx;
+  background: #F4F2FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16rpx 32rpx rgba(139, 92, 246, 0.12);
+  background-size: 28rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon-user {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' fill='none' stroke='%238B5CF6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='14' cy='10' r='5'/><path d='M5.5 22c1.7-4.6 5.3-7 8.5-7s6.8 2.4 8.5 7'/></svg>");
+}
+
+.icon-globe {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' fill='none' stroke='%238B5CF6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='14' cy='14' r='9'/><path d='M5 14h18'/><path d='M14 5c2 3.4 2 13.6 0 18'/></svg>");
+}
+
+.icon-award {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' fill='none' stroke='%238B5CF6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5h10v9a5 5 0 1 1-10 0V5z'/><path d='M9 14 7 22l5-2.5 5 2.5-2-8'/></svg>");
+}
+
+.icon-building {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' fill='none' stroke='%238B5CF6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 22V10l7-5 7 5v12'/><path d='M4 22h20'/><path d='M11 13h6'/><path d='M11 17h6'/></svg>");
+}
+
+.icon-book {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' fill='none' stroke='%238B5CF6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 7h9a5 5 0 0 1 5 5v11h-9a5 5 0 0 0-5 5V7z'/><path d='M20 7h2v16'/></svg>");
+}
+
+.row-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.row-label {
+  font-size: 30rpx;
+  color: #4B5563;
+}
+
+.row-chevron {
+  width: 32rpx;
+  height: 32rpx;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%238B5CF6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='m8 5 4 5-4 5'/></svg>");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.info-row.selectable:active {
+  background: rgba(139, 92, 246, 0.05);
+}

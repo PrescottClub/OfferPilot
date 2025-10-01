@@ -19,17 +19,12 @@
 
     <view class="tool-grid">
       <block wx:for="{{filteredTools}}" wx:key="name">
-        <view class="tool-card card-elevated" bindtap="onToolTap" data-name="{{item.name}}">
-          <view class="tool-icon-cap">
-            <view class="tool-icon-ring">
-              <view class="tool-duo {{item.icon}}"></view>
-            </view>
-          </view>
-          <view class="tool-meta">
-            <view class="tool-title heading-md">{{item.name}}</view>
-            <view class="tool-desc caption-text">{{item.description}}</view>
-          </view>
-        </view>
+        <tool-card
+          name="{{item.name}}"
+          icon="{{item.icon}}"
+          description="{{item.description}}"
+          bind:cardtap="onToolTap"
+        />
       </block>
 
       <view wx:if="{{!filteredTools.length}}" class="empty-state card-elevated">
