@@ -1,4 +1,9 @@
-<view class="info-row {{selectable ? 'selectable' : ''}}" bindtap="handleTap">
+<view
+  class="info-row {{selectable ? 'selectable' : ''}} row-class"
+  bindtap="handleTap"
+  hover-class="{{selectable ? 'info-row__hover' : ''}}"
+  hover-stay-time="120"
+>
   <view class="row-icon {{icon}}"></view>
   <view class="row-body">
     <view class="row-label">{{label}}</view>

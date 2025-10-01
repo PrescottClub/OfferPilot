@@ -3,6 +3,11 @@
   align-items: center;
   gap: 20rpx;
   padding: 22rpx 0;
+  transition: background 180ms ease;
+}
+
+.info-row__hover {
+  background: rgba(139, 92, 246, 0.08);
 }
 
 .row-icon {
@@ -49,6 +54,11 @@
 .row-label {
   font-size: 30rpx;
   color: #4B5563;
+}
+
+.row-helper {
+  font-size: 24rpx;
+  color: #9CA3AF;
 }
 
 .row-chevron {

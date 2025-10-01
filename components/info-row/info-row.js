@@ -2,6 +2,7 @@ Component({
   options: {
     styleIsolation: 'apply-shared'
   },
+  externalClasses: ['row-class'],
   properties: {
     icon: {
       type: String,

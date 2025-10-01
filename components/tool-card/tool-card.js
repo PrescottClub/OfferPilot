@@ -2,6 +2,7 @@ Component({
   options: {
     styleIsolation: 'apply-shared'
   },
+  externalClasses: ['card-class'],
   properties: {
     name: {
       type: String,

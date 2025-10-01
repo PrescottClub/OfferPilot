@@ -1,62 +1,94 @@
-<view class="profile-screen page-shell">
-  <view class="hero-card surface-blur">
-    <view class="hero-gradient"></view>
-    <view class="hero-content">
-      <view class="identity-orb"></view>
-      <view class="hero-texts">
-        <view class="hero-title">
-          <text class="hero-name">{{nickname || '未登录用户'}}</text>
-          <text class="hero-status">· Guest</text>
+<view class="profile-screen page-shell {{isReady ? 'page-ready' : ''}}">
+  <view wx:if="{{isLoading}}" class="profile-skeleton">
+    <view class="skeleton skeleton-hero"></view>
+    <view class="skeleton skeleton-text lg skeleton-form-title"></view>
+    <view class="skeleton skeleton-text sm skeleton-form-caption"></view>
+    <view class="skeleton-form">
+      <block wx:for="{{skeletonRows}}" wx:key="*this">
+        <view class="skeleton-row">
+          <view class="skeleton skeleton-text sm skeleton-label"></view>
+          <view class="skeleton skeleton-text lg skeleton-input"></view>
         </view>
-        <view class="hero-subtitle caption-text">完善个人档案，OfferPilot 更懂你的申请需求。</view>
-      </view>
+      </block>
     </view>
+    <view class="skeleton skeleton-button"></view>
   </view>
 
-  <view class="form-section surface-blur">
-    <view class="section-header heading-md">基本信息</view>
+  <view wx:else>
+    <view wx:if="{{regionsExpanded}}" class="backdrop-dim is-active" bindtap="toggleRegions"></view>
 
-    <info-row icon="icon-user" label="姓名">
-      <input class="row-input input-base" placeholder="请输入姓名" value="{{name}}" bindinput="onName" />
-    </info-row>
-    <view class="divider-line"></view>
-
-    <info-row icon="icon-globe" label="目标地区" selectable bind:rowtap="toggleRegions">
-      <view class="row-value">
-        <text wx:if="{{regions && regions.length}}">{{regions.join('、')}}</text>
-        <text wx:else class="placeholder-text">请选择意向留学地区</text>
+    <view class="hero-card surface-blur fade-up-enter">
+      <view class="hero-gradient"></view>
+      <view class="hero-content">
+        <view class="identity-orb"></view>
+        <view class="hero-texts">
+          <view class="hero-title">
+            <text class="hero-name">{{nickname || '未登录用户'}}</text>
+            <text class="hero-status">· Guest</text>
+          </view>
+          <view class="hero-subtitle caption-text">完善个人档案，OfferPilot 更懂你的申请需求。</view>
+        </view>
       </view>
-      <view slot="after" class="row-chevron"></view>
-    </info-row>
-    <view class="divider-line"></view>
-
-    <info-row icon="icon-award" label="语言成绩">
-      <input class="row-input input-base" placeholder="示例：雅思 7.0 / 托福 100" value="{{score}}" bindinput="onScore" />
-    </info-row>
-    <view class="divider-line"></view>
-
-    <info-row icon="icon-building" label="目标院校">
-      <input class="row-input input-base" placeholder="多个院校请用逗号分隔" value="{{schools}}" bindinput="onSchools" />
-    </info-row>
-    <view class="divider-line"></view>
-
-    <info-row icon="icon-book" label="目标专业">
-      <input class="row-input input-base" placeholder="多个专业请用逗号分隔" value="{{majors}}" bindinput="onMajors" />
-    </info-row>
-
-    <view wx:if="{{regionsExpanded}}" class="regions-sheet surface-blur">
-      <view class="sheet-title body-text">请选择意向地区</view>
-      <checkbox-group bindchange="onRegions">
-        <label class="sheet-option" wx:for="{{allRegions}}" wx:key="*this">
-          <checkbox value="{{item}}" checked="{{regions.indexOf(item) > -1}}" />
-          <view class="sheet-flag {{regionFlags[item]}}"></view>
-          <text class="sheet-label">{{item}}</text>
-        </label>
-      </checkbox-group>
     </view>
-  </view>
 
-  <view class="actions">
-    <button class="save-btn" bindtap="onSave">保存</button>
+    <view class="form-section surface-blur fade-up-enter stagger-1">
+      <view class="form-header">
+        <view class="section-header heading-md">基本信息</view>
+        <view wx:if="{{saveHint}}" class="save-hint caption-text">{{saveHint}}</view>
+      </view>
+
+      <info-row icon="icon-user" label="姓名" row-class="fade-up-enter">
+        <input class="row-input input-base" placeholder="请输入姓名" value="{{name}}" bindinput="onName" />
+        <view class="row-helper caption-text">用于生成更贴心的称呼</view>
+      </info-row>
+      <view class="divider-line"></view>
+
+      <info-row icon="icon-globe" label="目标地区" selectable bind:rowtap="toggleRegions" row-class="fade-up-enter stagger-1">
+        <view class="row-value">
+          <text wx:if="{{regions && regions.length}}">{{regions.join('、')}}</text>
+          <text wx:else class="placeholder-text">请选择意向留学地区</text>
+        </view>
+        <view class="row-helper caption-text">支持多选，便于精细推荐</view>
+        <view slot="after" class="row-chevron"></view>
+      </info-row>
+      <view class="divider-line"></view>
+
+      <info-row icon="icon-award" label="语言成绩" row-class="fade-up-enter stagger-2">
+        <input class="row-input input-base" placeholder="示例：雅思 7.0 / 托福 100" value="{{score}}" bindinput="onScore" />
+        <view class="row-helper caption-text">填写有助于匹配适合项目</view>
+      </info-row>
+      <view class="divider-line"></view>
+
+      <info-row icon="icon-building" label="目标院校" row-class="fade-up-enter stagger-3">
+        <input class="row-input input-base" placeholder="多个院校请用逗号分隔" value="{{schools}}" bindinput="onSchools" />
+      </info-row>
+      <view class="divider-line"></view>
+
+      <info-row icon="icon-book" label="目标专业" row-class="fade-up-enter stagger-4">
+        <input class="row-input input-base" placeholder="多个专业请用逗号分隔" value="{{majors}}" bindinput="onMajors" />
+      </info-row>
+
+      <view wx:if="{{regionsExpanded}}" class="regions-sheet surface-blur fade-up-enter stagger-2">
+        <view class="sheet-title body-text">请选择意向地区</view>
+        <checkbox-group bindchange="onRegions">
+          <label class="sheet-option" wx:for="{{allRegions}}" wx:key="*this">
+            <checkbox value="{{item}}" checked="{{regions.indexOf(item) > -1}}" />
+            <view class="sheet-flag {{regionFlags[item]}}"></view>
+            <text class="sheet-label">{{item}}</text>
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+
+    <view class="actions fade-up-enter stagger-2">
+      <button
+        class="save-btn {{saveState === 'saving' ? 'is-saving' : saveState === 'saved' ? 'is-saved' : ''}}"
+        bindtap="onSave"
+      >
+        <block wx:if="{{saveState === 'saving'}}">保存中...</block>
+        <block wx:elif="{{saveState === 'saved'}}">已保存</block>
+        <block wx:else>保存</block>
+      </button>
+    </view>
   </view>
 </view>

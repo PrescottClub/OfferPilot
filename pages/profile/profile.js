@@ -1,5 +1,7 @@
 const PROFILE_STORAGE_KEY = 'offerPilot.profile.v1';
 const PROFILE_FIELDS = ['nickname', 'name', 'regions', 'score', 'schools', 'majors'];
+const AUTO_SAVE_HINT_DURATION = 1600;
+const SKELETON_DELAY = 420;
 
 function extractProfileFields(source) {
   const target = {};
@@ -37,6 +39,8 @@ function persistProfileSnapshot(data) {
 
 Page({
   data: {
+    isReady: true,
+    isLoading: true,
     nickname: '',
     name: '',
     regions: [],
@@ -53,52 +57,95 @@ Page({
     },
     score: '',
     schools: '',
-    majors: ''
+    majors: '',
+    saveState: 'idle',
+    saveHint: '',
+    skeletonRows: [0, 1, 2, 3, 4]
   },
   onLoad() {
     const stored = loadProfileFromStorage();
     if (stored) {
       this.setData(stored);
     }
+    this.startSkeleton();
+  },
+  onReady() {},
+  onHide() {
+    this.teardown();
+  },
+  onUnload() {
+    this.teardown();
   },
   onName(e) {
-    const value = e.detail.value;
-    this.setData({ name: value }, () => {
-      this.persistProfile();
-    });
+    this.updateProfileField('name', e.detail.value || '');
   },
   onRegions(e) {
-    const value = e.detail.value;
-    this.setData({ regions: value }, () => {
-      this.persistProfile();
-    });
+    this.updateProfileField('regions', e.detail.value || []);
   },
   onScore(e) {
-    const value = e.detail.value;
-    this.setData({ score: value }, () => {
-      this.persistProfile();
-    });
+    this.updateProfileField('score', e.detail.value || '');
   },
   onSchools(e) {
-    const value = e.detail.value;
-    this.setData({ schools: value }, () => {
-      this.persistProfile();
-    });
+    this.updateProfileField('schools', e.detail.value || '');
   },
   onMajors(e) {
-    const value = e.detail.value;
-    this.setData({ majors: value }, () => {
-      this.persistProfile();
-    });
+    this.updateProfileField('majors', e.detail.value || '');
   },
   toggleRegions() {
     this.setData({ regionsExpanded: !this.data.regionsExpanded });
   },
   onSave() {
+    this.setData({ saveState: 'saving' });
     const ok = this.persistProfile();
-    wx.showToast({ title: ok ? '已保存' : '保存失败', icon: ok ? 'success' : 'none' });
+    if (ok) {
+      this.showSaveHint('资料已更新', 'saved', 2000);
+      wx.showToast({ title: '已保存', icon: 'success' });
+    } else {
+      this.setData({ saveState: 'idle' });
+      wx.showToast({ title: '保存失败', icon: 'none' });
+    }
+  },
+  updateProfileField(key, value) {
+    this.setData({ [key]: value }, () => {
+      const ok = this.persistProfile();
+      if (ok) {
+        this.showSaveHint('已自动保存', 'synced');
+      }
+    });
+  },
+  showSaveHint(message, state = 'synced', duration = AUTO_SAVE_HINT_DURATION) {
+    if (this.saveHintTimer) {
+      clearTimeout(this.saveHintTimer);
+      this.saveHintTimer = null;
+    }
+    this.setData({ saveHint: message, saveState: state });
+    this.saveHintTimer = setTimeout(() => {
+      this.setData({ saveHint: '', saveState: 'idle' });
+      this.saveHintTimer = null;
+    }, duration);
+  },
+  startSkeleton() {
+    this.clearLoadingTimer();
+    this.setData({ isLoading: true });
+    this.loadingTimer = setTimeout(() => {
+      this.setData({ isLoading: false });
+      this.loadingTimer = null;
+    }, SKELETON_DELAY);
   },
   persistProfile() {
     return persistProfileSnapshot(this.data);
+  },
+  clearLoadingTimer() {
+    if (this.loadingTimer) {
+      clearTimeout(this.loadingTimer);
+      this.loadingTimer = null;
+    }
+  },
+  teardown() {
+    this.clearLoadingTimer();
+    if (this.saveHintTimer) {
+      clearTimeout(this.saveHintTimer);
+      this.saveHintTimer = null;
+    }
   }
 });
