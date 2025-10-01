@@ -1,0 +1,59 @@
+<view class="tools-page page-shell {{isReady ? 'page-ready' : ''}}">
+  <view wx:if="{{isLoading}}" class="tools-skeleton">
+    <view class="skeleton skeleton-text lg skeleton-title"></view>
+    <view class="skeleton skeleton-text sm skeleton-subtitle"></view>
+    <view class="skeleton skeleton-search"></view>
+    <view class="skeleton-grid">
+      <block wx:for="{{skeletonSlots}}" wx:key="*this">
+        <view class="skeleton-card">
+          <view class="skeleton skeleton-rounded skeleton-icon"></view>
+          <view class="skeleton skeleton-text lg skeleton-line"></view>
+          <view class="skeleton skeleton-text sm skeleton-line short"></view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view wx:else class="tools-inner">
+    <view class="tools-header fade-up-enter">
+      <view class="heading-xl">OfferPilot 工具面板</view>
+      <view class="body-text">精选常用助手，陪你高效推进每一个申请节点。</view>
+    </view>
+
+    <view class="search-bar card-elevated fade-up-enter stagger-1 {{stickySearch ? 'is-sticky' : ''}}">
+      <view class="search-icon"></view>
+      <input
+        class="search-field input-base"
+        placeholder="搜索工具，如：面试准备"
+        value="{{search}}"
+        bindinput="onSearchInput"
+        confirm-type="search"
+        bindconfirm="onSearch"
+      />
+    </view>
+
+    <view wx:if="{{filteredTools.length}}" class="tool-grid reveal-stage {{gridReady ? 'reveal-ready' : ''}}">
+      <block wx:for="{{filteredTools}}" wx:key="name" wx:for-index="idx">
+        <tool-card
+          card-class="{{'fade-up-enter stagger-' + (idx < 5 ? idx : 4)}}"
+          name="{{item.name}}"
+          icon="{{item.icon}}"
+          description="{{item.description}}"
+          data-name="{{item.name}}"
+          bind:cardtap="onToolTap"
+        />
+      </block>
+    </view>
+    <view wx:else class="empty-state card-elevated fade-up-enter stagger-1">
+      <view class="empty-illustration"></view>
+      <view class="empty-title heading-md">没有找到相关工具</view>
+      <view class="empty-copy body-text">试试换一个关键词，或直接使用以下推荐。</view>
+      <view class="empty-suggestions">
+        <block wx:for="{{emptySuggestions}}" wx:key="*this">
+          <view class="ghost-chip" data-keyword="{{item}}" bindtap="onEmptySuggestionTap">{{item}}</view>
+        </block>
+      </view>
+      <button class="empty-reset button-ghost" bindtap="resetSearch">查看全部工具</button>
+    </view>
+  </view>
+</view>

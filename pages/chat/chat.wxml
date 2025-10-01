@@ -1,0 +1,64 @@
+<view class="chat-page page-shell {{isReady ? 'page-ready' : ''}}">
+  <view class="chat-overlay fade-in-soft"></view>
+  <view class="chat-stack">
+    <view class="welcome-card card-elevated fade-up-enter">
+      <view class="welcome-top">
+        <view class="logo-mark">OP</view>
+        <view class="welcome-copy">
+          <view class="heading-lg">OfferPilot 智能顾问</view>
+          <view class="caption-text">欢迎回来，随时向我咨询你的留学申请计划。</view>
+        </view>
+      </view>
+      <view class="quick-actions">
+        <block wx:for="{{quickPrompts}}" wx:key="*this">
+          <view class="ghost-chip" data-value="{{item}}" bindtap="onQuickSelect">{{item}}</view>
+        </block>
+      </view>
+    </view>
+
+    <scroll-view
+      class="history card-elevated fade-up-enter stagger-1"
+      scroll-y="true"
+      enable-flex="true"
+      scroll-with-animation="true"
+      scroll-into-view="{{scrollIntoView}}"
+    >
+      <block wx:for="{{messages}}" wx:key="id">
+        <view class="msg {{item.role}} {{item.typing ? 'is-typing' : ''}}" id="msg-{{item.id}}">
+          <view class="bubble">
+            <view wx:if="{{item.typing}}" class="typing-indicator">
+              <view class="dots">
+                <view class="dot"></view>
+                <view class="dot"></view>
+                <view class="dot"></view>
+              </view>
+              <text class="typing-label caption-text">对方正在输入...</text>
+            </view>
+            <view wx:else class="msg-text {{item.role}}-text">{{item.text}}</view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <view class="composer-panel fade-up-enter stagger-2 {{sending ? 'is-busy' : ''}}">
+    <input
+      class="composer-input input-base"
+      placeholder="请输入你想咨询的内容"
+      value="{{draft}}"
+      bindinput="onInput"
+      confirm-type="send"
+      bindconfirm="onSend"
+    />
+    <button
+      class="send-btn {{canSend ? 'is-active' : ''}} {{sendPulse ? 'is-pulsing' : ''}}"
+      size="mini"
+      bindtap="onSend"
+      disabled="{{!canSend}}"
+      hover-class="send-btn--hover"
+      hover-stay-time="120"
+    >
+      <view class="send-glyph"></view>
+    </button>
+  </view>
+</view>

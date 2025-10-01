@@ -1,0 +1,18 @@
+<view
+  class="tool-card card-elevated card-class"
+  bindtap="handleTap"
+  hover-class="tool-card__hover"
+  hover-stay-time="120"
+  data-name="{{name}}"
+>
+  <view class="tool-icon-cap">
+    <view class="tool-icon-ring">
+      <view class="tool-duo {{icon}}"></view>
+    </view>
+  </view>
+  <view class="tool-meta">
+    <view class="tool-title heading-md">{{name}}</view>
+    <view class="tool-desc caption-text">{{description}}</view>
+    <slot></slot>
+  </view>
+</view>
